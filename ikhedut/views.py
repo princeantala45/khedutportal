@@ -115,6 +115,7 @@ def signup(request):
         mobile = request.POST.get("mobile", "").strip()
         password = request.POST.get("password")
         repassword = request.POST.get("repassword")
+        image=request.FILES.get("image")
 
         if not all([username, email, mobile, password, repassword]):
             messages.error(request, "All fields are required")
@@ -138,7 +139,8 @@ def signup(request):
         # CREATE PROFILE
         Signup.objects.create(
             user=user,
-            mobile=mobile
+            mobile=mobile,
+            image=image
         )
 
         messages.success(request, "Registration successful")

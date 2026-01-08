@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   // ================== UP ARROW ==================
   const upArrow = document.querySelector(".up-errow");

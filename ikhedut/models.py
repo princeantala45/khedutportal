@@ -19,6 +19,8 @@ class Signup(models.Model):
         on_delete=models.CASCADE
     )
     mobile = models.CharField(max_length=60)
+    image = models.ImageField(upload_to="userimages/",)
+
 
     def __str__(self):
         return self.user.username
