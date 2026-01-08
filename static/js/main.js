@@ -194,12 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // =====================loder-all-page-=========================
- window.addEventListener("load", function () {
-        const loader = document.getElementById("page-loader");
-        if (loader) {
-            loader.style.display = "none";
-        }
-    });
+window.addEventListener("load", function () {
+    const loader = document.getElementById("page-loader");
+    if (loader) {
+        loader.style.display = "none";
+    }
+});
 
 
 // ================= PAGE LOADER =================

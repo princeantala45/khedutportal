@@ -29,7 +29,8 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = True
+ 
 
 # ALLOWED_HOSTS = []
 # SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
@@ -70,40 +71,24 @@ ROOT_URLCONF = 'ikhedut_portal.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-    BASE_DIR / "templates",
-            ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "templates",
+            BASE_DIR / "ikhedut_portal" / "templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
+
 WSGI_APPLICATION = 'ikhedut_portal.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ikhedut_portal',
-#         'USER': 'princeantala',
-#         'PASSWORD': 'Prince@123',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
 
 
 DATABASES = {
@@ -151,7 +136,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 # added manually 
 STATICFILES_DIRS = [
-    BASE_DIR / "ikhedut_portal" / "static",
+    BASE_DIR / "static", 
 ]
 
 
@@ -179,20 +164,6 @@ JAZZMIN_SETTINGS = {
     # for login image
     "custom_css": "css/admin_custom.css",
 }
-
-# settings.py
-
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/1",  # URL of your Redis server
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
-
-
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
