@@ -3,3 +3,4 @@ gunicorn
 whitenoise
 django-jazzmin
 djangorestframework
+Pillow
