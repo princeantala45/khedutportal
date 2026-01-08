@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Buy Crops{% endblock title %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+  <!-- HEADER -->
+  <div class="text-center mb-10">
+    <h2 class="text-3xl font-bold text-gray-900">
+      Buy Fresh Crops
+    </h2>
+    <p class="text-gray-500 mt-1 text-sm">
+      Quality produce directly from farmers
+    </p>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+    {% for crop in crops %}
+    <div class="group bg-white border rounded-xl p-3 flex flex-col
+             transition-all duration-300
+             hover:-translate-y-0.5 hover:shadow-lg">
+
+      {% if crop.image %}
+      <div class="h-40 mb-3 rounded-lg overflow-hidden bg-gray-100">
+        <img src="{{ crop.image.url }}"
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          alt="{{ crop.crop }}">
+      </div>
+      {% endif %}
+
+      <h3 class="text-base font-semibold text-gray-900 text-center">
+        {{ crop.crop|title }}
+      </h3>
+
+      <p class="text-xs text-gray-500 text-center mt-1">
+        Available: {{ crop.total_quantity }} KG
+      </p>
+
+      <p class="text-lg font-bold text-green-700 text-center mt-2">
+        ₹{{ crop.price }}
+        <span class="text-xs font-medium text-gray-500">20 / KG</span>
+      </p>
+
+      {% if crop.total_quantity >= 20 %}
+      <form method="POST" action="{% url 'cart' %}" class="mt-auto pt-4">
+        {% csrf_token %}
+
+        <input type="hidden" name="crop_id" value="{{ crop.product_id }}">
+        <input type="hidden" name="quantity" class="quantity-input" value="20">
+
+        <!-- QUANTITY -->
+        <div class="flex items-center justify-center gap-2 mb-3">
+
+          <button type="button" class="qty-btn decrement" data-min="20">
+            −
+          </button>
+
+          <span class="qty-value qty-box">
+            20
+          </span>
+
+          <button type="button" class="qty-btn increment" data-max="{{ crop.total_quantity }}">
+            +
+          </button>
+
+        </div>
+
+        <!-- ADD BUTTON -->
+        <button type="submit" class="w-full bg-green-700 text-white py-2 rounded-lg
+                 text-sm font-semibold
+                 transition hover:bg-green-800">
+          Add to Cart
+        </button>
+
+      </form>
+      {% else %}
+      <div class="mt-auto pt-4">
+        <button disabled class="w-full bg-gray-200 text-gray-500 py-2 rounded-lg
+                 text-sm font-semibold cursor-not-allowed">
+          Out of Stock
+        </button>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- JS: PRESS & HOLD -->
+<script>
+  let holdInterval = null;
+
+  function updateQty(btn, direction) {
+    const form = btn.closest("form");
+    const valueEl = form.querySelector(".qty-value");
+    const input = form.querySelector(".quantity-input");
+
+    let qty = parseInt(valueEl.innerText);
+    const min = parseInt(btn.dataset.min || 0);
+    const max = parseInt(btn.dataset.max || Infinity);
+
+    if (direction === "inc" && qty < max) qty++;
+    if (direction === "dec" && qty > min) qty--;
+
+    valueEl.innerText = qty;
+    input.value = qty;
+  }
+
+  function startHold(btn, direction) {
+    updateQty(btn, direction);
+    holdInterval = setInterval(() => {
+      updateQty(btn, direction);
+    }, 120);
+  }
+
+  function stopHold() {
+    clearInterval(holdInterval);
+    holdInterval = null;
+  }
+
+  document.querySelectorAll(".increment").forEach(btn => {
+    btn.addEventListener("mousedown", () => startHold(btn, "inc"));
+    btn.addEventListener("mouseup", stopHold);
+    btn.addEventListener("mouseleave", stopHold);
+    btn.addEventListener("touchstart", e => {
+      e.preventDefault();
+      startHold(btn, "inc");
+    });
+    btn.addEventListener("touchend", stopHold);
+  });
+
+  document.querySelectorAll(".decrement").forEach(btn => {
+    btn.addEventListener("mousedown", () => startHold(btn, "dec"));
+    btn.addEventListener("mouseup", stopHold);
+    btn.addEventListener("mouseleave", stopHold);
+    btn.addEventListener("touchstart", e => {
+      e.preventDefault();
+      startHold(btn, "dec");
+    });
+    btn.addEventListener("touchend", stopHold);
+  });
+</script>
+
+<!-- STYLES -->
+<style>
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    font-size: 18px;
+    font-weight: 700;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .qty-btn:hover {
+    background: #e5e7eb;
+  }
+
+  .qty-btn:active {
+    transform: scale(0.95);
+  }
+
+  .qty-box {
+    min-width: 34px;
+    height: 28px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+</style>
+
+{% endblock %}

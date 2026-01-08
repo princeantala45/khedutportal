@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sell Crops
+{% endblock title %}
+
+{% block content %}
+{% for message in messages %}
+<div id="alert-message" class="
+    {% if message.tags == 'error' %}
+      bg-red-100 text-red-700 border-red-300
+    {% else %}
+      bg-green-100 text-green-700 border-green-300
+    {% endif %}
+  ">
+    {{ message }}
+</div>
+{% endfor %}
+<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-xl bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+            Sell Your Crops
+        </h2>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Crop Selection -->
+            <div>
+                <label for="crop" class="block text-sm font-medium text-gray-700 mb-1">
+                    Select Crop / Produce
+                </label>
+
+                <select name="crop" id="crop" required
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    <option value="">-- Select Item --</option>
+
+                    <!-- Crops -->
+                    <optgroup label="🌾 Crops">
+                        <option value="wheat">🌾 Wheat</option>
+                        <option value="rice">🍚 Rice</option>
+                        <option value="corn">🌽 Corn</option>
+                        <option value="cotton">🧵 Cotton</option>
+                        <option value="groundnut">🥜 Groundnut</option>
+                        <option value="sugarcane">🍬 Sugarcane</option>
+                    </optgroup>
+
+                    <!-- Vegetables -->
+                    <optgroup label="🥕 Vegetables">
+                        <option value="tomato">🍅 Tomato</option>
+                        <option value="potato">🥔 Potato</option>
+                        <option value="onion">🧅 Onion</option>
+                        <option value="garlic">🧄 Garlic</option>
+                        <option value="carrot">🥕 Carrot</option>
+                        <option value="cabbage">🥬 Cabbage</option>
+                        <option value="cauliflower">🥦 Cauliflower</option>
+                        <option value="chilli">🌶️ Chilli</option>
+                        <option value="brinjal">🍆 Brinjal</option>
+                    </optgroup>
+
+                    <!-- Fruits -->
+                    <optgroup label="🍎 Fruits">
+                        <option value="apple">🍎 Apple</option>
+                        <option value="banana">🍌 Banana</option>
+                        <option value="mango">🥭 Mango</option>
+                        <option value="orange">🍊 Orange</option>
+                        <option value="grapes">🍇 Grapes</option>
+                        <option value="papaya">🍈 Papaya</option>
+                        <option value="watermelon">🍉 Watermelon</option>
+                    </optgroup>
+                </select>
+
+            </div>
+
+            <!-- Quantity -->
+            <div>
+                <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">
+                    Quantity (Kg)
+                </label>
+                <input type="number" name="quantity" id="quantity" min="20" max="100000" required
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                <p class="text-xs text-gray-500 mt-1">
+                    Minimum 20 Kg and maximum 100,000 Kg allowed
+                </p>
+            </div>
+
+            <!-- Price -->
+            <div style="cursor: not-allowed;">
+                <label style="cursor: not-allowed;" for="price" class="block text-sm font-medium text-gray-700 mb-1">
+                    Expected Price (₹ per 20 KG)
+                </label>
+                <input style="cursor: not-allowed;" type="number" name="price" id="price" required readonly
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-green-500">
+            </div>
+
+            <!-- Crop Image -->
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">
+                    Crop Image
+                </label>
+                <input type="file" name="image" id="image" accept="image/*" required class="w-full text-sm text-gray-600
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-lg file:border-0
+                           file:text-sm file:font-medium
+                           file:bg-green-50 file:text-green-700
+                           hover:file:bg-green-100">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-medium
+                       hover:bg-green-700 transition duration-200">
+                Submit Crop Details
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Auto Price Script -->
+<script>
+    const cropPrices = {
+        // Crops (₹ per 20 kg)
+        wheat: 500,        // 510 / 5
+        rice: 480,         // 960 / 5
+        corn: 460,          // 380 / 5
+        cotton: 1200,       // 1410 / 5
+        groundnut: 900,    // 1150 / 5
+        sugarcane: 68,     // 85 / 5
+
+        // Vegetables (₹ per 20 kg)
+        tomato: 500,       // 20 x 20
+        potato: 360,       // 18 x 20
+        onion: 300,        // 34 x 20
+        garlic: 3200,      // 160 x 20
+        carrot: 600,       // 30 x 20
+        cabbage: 300,      // 15 x 20
+        cauliflower: 440,  // 22 x 20
+        chilli: 1200,      // 60 x 20
+        brinjal: 500,      // 25 x 20
+
+        // Fruits (₹ per 20 kg)
+        apple: 3000,       // 120 x 20
+        banana: 500,       // 40 x 20
+        mango: 2200,       // 90 x 20
+        orange: 1200,      // 60 x 20
+        grapes: 1600,      // 80 x 20
+        papaya: 500,       // 35 x 20
+        watermelon: 360    // 18 x 20
+    };
+
+    const cropSelect = document.getElementById("crop");
+    const priceInput = document.getElementById("price");
+
+    cropSelect.addEventListener("change", function () {
+        priceInput.value = cropPrices[this.value] || "";
+    });
+</script>
+
+{% endblock content %}

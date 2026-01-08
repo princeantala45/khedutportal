@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block body %}{% endblock body %}
+{% block title %}
+Fertilizer
+{% endblock title %}
+
+{% block content %}
+<div class="mb-12 text-center">
+  <h1 class="text-2xl sm:text-3xl pt-6 font-semibold text-green-700">
+    Fertilizer
+  </h1>
+</div>
+
+<main class="wrap">
+  <section class="grid">
+
+    <article class="card" data-animate>
+      <div class="media">
+        <img src="/static/Fertilizer/urea.jpg" alt="Urea fertilizer">
+      </div>
+      <div class="meta">
+        <h2>Urea</h2>
+        <div class="badge">45 kg</div>
+      </div>
+      <div class="desc">
+        <p>• <strong>Nutrient:</strong> High Nitrogen (N) content for rapid vegetative growth.</p>
+        <p>• <strong>Best for:</strong> Wheat, maize, rice and leafy vegetables.</p>
+        <p>• <strong>Benefits:</strong> Promotes quick leaf growth and early crop vigor.</p>
+      </div>
+      <p class="price">Approx. Price: ₹270–300</p>
+    </article>
+
+    <article class="card" data-animate>
+      <div class="media">
+        <img src="/static/Fertilizer/dap.jpg" alt="DAP fertilizer">
+      </div>
+      <div class="meta">
+        <h2>DAP (Di-ammonium Phosphate)</h2>
+        <div class="badge">50 kg</div>
+      </div>
+      <div class="desc">
+        <p>• <strong>Nutrient:</strong> Phosphorus (P) + Nitrogen (N).</p>
+        <p>• <strong>Best for:</strong> Basal application at sowing to support root development.</p>
+        <p>• <strong>Benefits:</strong> Strengthens early-stage crop growth and root establishment.</p>
+      </div>
+      <p class="price">Approx. Price: ₹1350–1500</p>
+    </article>
+
+    <article class="card" data-animate>
+      <div class="media">
+        <img src="/static/Fertilizer/npk.jpg" alt="NPK fertilizer">
+      </div>
+      <div class="meta">
+        <h2>NPK</h2>
+        <div class="badge">Varies</div>
+      </div>
+      <div class="desc">
+        <p>• <strong>Nutrient:</strong> Balanced Nitrogen, Phosphorus and Potassium mix.</p>
+        <p>• <strong>Best for:</strong> Fruiting crops, vegetables and balanced crop development.</p>
+        <p>• <strong>Benefits:</strong> Improves flowering, fruit set and overall plant health.</p>
+      </div>
+      <p class="price">Approx. Price: ₹1150–1450</p>
+    </article>
+
+    <article class="card" data-animate>
+      <div class="media">
+        <img src="/static/Fertilizer/mop.jpg" alt="MOP fertilizer">
+      </div>
+      <div class="meta">
+        <h2>MOP (Potash)</h2>
+        <div class="badge">50 kg</div>
+      </div>
+      <div class="desc">
+        <p>• <strong>Nutrient:</strong> High Potassium (K) content.</p>
+        <p>• <strong>Best for:</strong> Fruit crops and vegetables where quality matters.</p>
+        <p>• <strong>Benefits:</strong> Improves fruit size, sweetness and stress resistance.</p>
+      </div>
+      <p class="price">Approx. Price: ₹400–550</p>
+    </article>
+
+  </section>
+</main>
+
+<script>
+  // Simple reveal on scroll logic to match other pages
+  const cards = document.querySelectorAll('[data-animate]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  cards.forEach(c => obs.observe(c));
+</script>
+{% endblock content %}

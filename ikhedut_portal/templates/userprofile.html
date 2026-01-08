@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ user.username }} | Profile
+{% endblock title %}
+
+{% block content %}
+
+<div class="max-w-6xl mx-auto px-4 py-10 space-y-10">
+
+    <!-- ================= HEADER ================= -->
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Account Dashboard
+        </h1>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="flex items-center gap-2 px-4 py-2 rounded-lg
+                       text-red-600 border border-red-200
+                       hover:bg-red-50 hover:border-red-300
+                       transition font-medium text-sm">
+                Logout
+            </button>
+        </form>
+    </div>
+
+    <hr class="border-gray-200">
+
+    <!-- ================= PROFILE ================= -->
+    <div class="bg-gradient-to-r from-green-50 to-white rounded-2xl shadow p-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">
+            My Profile
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-gray-700">
+            <div class="p-4 bg-white rounded-xl shadow-sm">
+                <p class="text-sm text-gray-500">Username</p>
+                <p class="font-semibold text-lg">{{ user.username }}</p>
+            </div>
+
+            <div class="p-4 bg-white rounded-xl shadow-sm">
+                <p class="text-sm text-gray-500">Email</p>
+                <p class="font-semibold text-lg break-all">{{ user.email }}</p>
+            </div>
+
+            <div class="p-4 bg-white rounded-xl shadow-sm">
+                <p class="text-sm text-gray-500">Mobile</p>
+                <p class="font-semibold text-lg">{{ profile.mobile }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ORDERS ================= -->
+    <div class="bg-white rounded-2xl shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-6 border-b pb-2">
+            My Orders
+        </h2>
+
+        {% if orders %}
+        <div class="space-y-8">
+
+            {% for order in orders %}
+            <div class="border rounded-2xl p-6 hover:shadow-lg transition space-y-5">
+
+                <!-- Order Header -->
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Order ID</p>
+                        <p class="font-semibold text-lg">#{{ order.id }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500">Placed On</p>
+                        <p class="font-medium">
+                            {{ order.created_at|date:"d M Y, h:i A" }}
+                        </p>
+                    </div>
+
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">Total Amount</p>
+                        <p class="text-xl font-bold text-green-600">
+                            ₹{{ order.total_amount }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Status Badge -->
+                <div>
+                    <span class="
+                        inline-block px-4 py-1.5 rounded-full text-sm font-medium
+                        {% if order.status == 'cancel_requested' %}
+                            bg-orange-100 text-orange-700
+                        {% elif order.status == 'cancelled' %}
+                            bg-red-100 text-red-700
+                        {% elif order.status == 'completed' %}
+                            bg-green-100 text-green-700
+                        {% else %}
+                            bg-blue-100 text-blue-700
+                        {% endif %}
+                    ">
+                        {{ order.get_status_display }}
+                    </span>
+                </div>
+
+                <!-- Order Items -->
+                <div>
+                    <h4 class="font-semibold mb-3">Order Items</h4>
+
+                    {% if order.items.exists %}
+                    <div class="divide-y">
+                        {% for item in order.items.all %}
+                        <div class="flex justify-between py-3 text-sm">
+                            <div>
+                                <p class="font-medium">{{ item.product.crop }}</p>
+                                <p class="text-gray-500">
+                                    {{ item.quantity }} KG
+                                </p>
+                            </div>
+                            <p class="font-semibold">₹{{ item.price }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-gray-400 italic">No items found.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Address + Payment -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 bg-gray-50 rounded-xl p-4">
+                    <p>
+                        <span class="font-medium">Payment:</span>
+                        {{ order.payment_method|upper }}
+                    </p>
+                    <p>
+                        <span class="font-medium">Delivery:</span><br>
+                        {{ order.address }}, {{ order.city }} - {{ order.pincode }}
+                    </p>    
+                </div>
+
+                <!-- Cancel Section -->
+                {% if order.can_cancel %}
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+
+                    <p class="countdown text-orange-600 font-medium" data-created="{{ order.created_at|date:'U' }}"
+                        data-order="{{ order.id }}">
+                        Cancel available for:
+                        <span id="timer-{{ order.id }}"></span>
+                    </p>
+
+                    <button onclick="confirmCancel('{{ order.id }}')" class="px-5 py-2 rounded-lg bg-red-500 text-white
+                               font-medium hover:bg-red-600 transition">
+                        Cancel Order
+                    </button>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% else %}
+        <p class="text-gray-500 italic">
+            You have not placed any orders yet.
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- ================= ADS ================= -->
+    <div class="bg-white rounded-2xl shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-6 border-b pb-2">
+            My Advertisements
+        </h2>
+
+        {% if ads %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for ad in ads %}
+            <div class="border rounded-xl p-4 hover:shadow-lg transition flex gap-4">
+                {% if ad.image %}
+                <img src="{{ ad.image.url }}" alt="{{ ad.productname }}" class="w-24 h-24 object-cover rounded-lg">
+                {% endif %}
+
+                <div class="flex-1">
+                    <h3 class="font-semibold text-lg">{{ ad.productname }}</h3>
+                    <p class="text-gray-600">₹{{ ad.price }}</p>
+
+                    <span class="
+                        inline-block mt-2 px-3 py-1 rounded-full
+                        text-sm font-medium
+                        {% if ad.is_approved %}
+                            bg-green-100 text-green-700
+                        {% else %}
+                            bg-yellow-100 text-yellow-700
+                        {% endif %}
+                    ">
+                        {% if ad.is_approved %}
+                        Approved
+                        {% else %}
+                        Pending
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-gray-500 italic">
+            You have not posted any advertisements.
+        </p>
+        {% endif %}
+    </div>
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const TEN_DAYS = 10 * 24 * 60 * 60 * 1000; // milliseconds
+
+        document.querySelectorAll("[data-created]").forEach(el => {
+            const createdAtUnix = parseInt(el.dataset.created) * 1000;
+            const orderId = el.dataset.order;
+
+            const now = Date.now();
+
+            if (now - createdAtUnix >= TEN_DAYS) {
+                // Update countdown text
+                el.innerHTML = `
+                <span class="text-green-600 font-semibold">
+                    Order Delivered
+                </span>
+            `;
+
+                // Update status badge text visually
+                const orderCard = el.closest(".border");
+                if (orderCard) {
+                    const badge = orderCard.querySelector("span.inline-block");
+                    if (badge) {
+                        badge.textContent = "Completed";
+                        badge.className =
+                            "inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-700";
+                    }
+                }
+            } else {
+                // Show remaining time
+                const remaining = TEN_DAYS - (now - createdAtUnix);
+                const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor(
+                    (remaining / (1000 * 60 * 60)) % 24
+                );
+
+                el.querySelector(`#timer-${orderId}`).textContent =
+                    `${days}d ${hours}h`;
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

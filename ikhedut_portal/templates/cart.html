@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-6 py-12">
+
+  <h2 class="text-3xl font-bold text-gray-800 mb-8">
+    Shopping Cart
+  </h2>
+
+  {% if items %}
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- CART ITEMS -->
+    <div class="lg:col-span-2 space-y-6">
+
+      {% for item in items %}
+      <div id="cart-item-{{ item.id }}"
+        class="bg-white rounded-xl shadow-sm border p-6 flex gap-6 transition-all duration-300">
+
+        {% if item.product.image %}
+        <img src="{{ item.product.image.url }}" class="w-28 h-28 object-cover rounded-lg border"
+          alt="{{ item.product.crop }}">
+        {% endif %}
+
+        <div class="flex-1">
+
+          <h3 class="text-lg font-semibold text-gray-800">
+            {{ item.product.crop|title }}
+          </h3>
+
+          <!-- PRICE -->
+          <p class="text-sm text-gray-500 mt-1">
+            ₹{{ item.product.price }} per 20 KG
+          </p>
+
+          <p class="text-sm text-gray-700 mt-3">
+            Quantity:
+            <span class="font-medium">
+              {{ item.quantity }} KG
+            </span>
+          </p>
+
+          <!-- ACTIONS -->
+          <div class="flex items-center gap-4 text-sm text-gray-500 mt-4">
+            <button type="button" onclick="openRemoveModal('{{ item.id }}', '{% url 'remove_from_cart' item.id %}')"
+              class="hover:text-red-600 transition">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBTOTAL -->
+        <div class="text-right">
+          <p class="text-lg font-semibold text-green-700">
+            ₹{{ item.subtotal }}
+          </p>
+        </div>
+
+      </div>
+      {% endfor %}
+
+      <a href="{% url 'buycrops' %}" class="inline-block text-green-700 hover:underline font-medium">
+        ← Continue shopping
+      </a>
+
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="bg-white rounded-xl shadow-sm border p-6 h-fit sticky top-24">
+
+      <h3 class="text-xl font-semibold text-gray-800 mb-6">
+        Order Summary
+      </h3>
+
+      <div class="space-y-4 text-gray-700">
+        <div class="flex justify-between">
+          <span>Subtotal</span>
+          <span>₹{{ total }}</span>
+        </div>
+
+        <div class="flex justify-between">
+          <span>Delivery</span>
+          <span class="text-green-600 font-medium">Free</span>
+        </div>
+
+        <hr>
+
+        <div class="flex justify-between text-lg font-bold">
+          <span>Total</span>
+          <span class="text-green-700">₹{{ total }}</span>
+        </div>
+      </div>
+
+      <a href="{% url 'checkout' %}"
+        class="block mt-6 bg-green-700 text-white text-center py-3 rounded-lg hover:bg-green-800 font-medium">
+        Proceed to Checkout
+      </a>
+
+    </div>
+  </div>
+
+  {% else %}
+  <div class="bg-white border rounded-xl shadow-sm text-center py-24">
+    <h3 class="text-2xl font-semibold text-gray-700 mb-3">
+      Your cart is empty
+    </h3>
+    <p class="text-gray-500 mb-6">
+      Add some crops to start shopping
+    </p>
+    <a href="{% url 'buycrops' %}" class="bg-green-700 text-white px-8 py-3 rounded-lg hover:bg-green-800 font-medium">
+      Shop Now
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- REMOVE MODAL -->
+<div id="removeModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+
+  <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-lg">
+
+    <h3 class="text-lg font-semibold text-gray-800">
+      Remove item
+    </h3>
+
+    <p class="text-gray-600 mt-2">
+      Are you sure you want to remove this item from your cart?
+    </p>
+
+    <div class="flex justify-end gap-3 mt-6">
+      <button onclick="closeRemoveModal()" class="px-4 py-2 text-gray-600 hover:text-gray-800">
+        Cancel
+      </button>
+
+      <form id="removeForm" method="POST">
+        {% csrf_token %}
+        <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+          Remove
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let currentItemId = null;
+
+  function openRemoveModal(itemId, actionUrl) {
+    currentItemId = itemId;
+    const modal = document.getElementById("removeModal");
+    const form = document.getElementById("removeForm");
+
+    form.action = actionUrl;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeRemoveModal() {
+    const modal = document.getElementById("removeModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    currentItemId = null;
+  }
+
+  document.getElementById("removeForm").addEventListener("submit", function () {
+    if (!currentItemId) return;
+
+    const item = document.getElementById(`cart-item-${currentItemId}`);
+    if (item) {
+      item.style.opacity = "0";
+      item.style.transform = "translateX(20px)";
+    }
+  });
+</script>
+
+{% endblock %}
