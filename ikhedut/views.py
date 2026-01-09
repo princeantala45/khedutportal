@@ -167,7 +167,8 @@ def user_login(request):
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
-    return redirect("/")
+
+    return render(request, "logout.html")
  
 @login_required(login_url="login")
 def cart(request):

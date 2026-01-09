@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/tillage.css'%}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="shortcut icon" href="{% static 'img/favicon.png'%}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
@@ -208,6 +209,9 @@
                 gap: 10px;
                 text-align: justify;
             }
+            #footer-text{
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -220,10 +224,7 @@
         <i class="fa-solid fa-angles-up" style="font-size: 20px;"></i>
     </div>
     <header class="w-full">
-        <div style="padding:10px;" class="max-w-7xl mx-auto
-    flex flex-col gap-4
-    md:grid md:grid-cols-3 md:items-center
-    lg:flex lg:flex-row">
+        <div style="padding:10px;" class="max-w-7xl mx-auto flex flex-col gap-2 md:grid md:grid-cols-3 md:items-center lg:flex lg:flex-row">
 
             <!-- Logo -->
             <div class="flex justify-center md:justify-start">
@@ -256,39 +257,34 @@
             <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
             <!-- Buttons -->
-<div class="
-    flex gap-3 justify-center
-    md:col-span-3
-    lg:col-span-1
-">              <a href="/login">
-                    <button class="cssbuttons-io-button">
-                        User Login
-                        <div class="icon">
-                            <svg height="24" width="24" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path
-                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                                    fill="currentColor"></path>
-                            </svg>
-                        </div>
-                    </button>
-                </a>
-
-                <a href="/admin">
-                    <button class="cssbuttons-io-button">
-                        Admin Login
-                        <div class="icon">
-                            <svg height="24" width="24" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                <path
-                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                                    fill="currentColor"></path>
-                            </svg>
-                        </div>
-                    </button>
-                </a>
+<div class="flex flex-col md:flex-row gap-2 justify-center items-center md:col-span-3 lg:col-span-1">               
+    
+    <a href="/login" class="w-fit">
+        <button class="cssbuttons-io-button">
+            User Login
+            <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
+                </svg>
             </div>
-        </div>
+        </button>
+    </a>
+
+    <a href="/admin" class="w-fit">
+        <button class="cssbuttons-io-button">
+            Admin Login
+            <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
+                </svg>
+            </div>
+        </button>
+    </a>
+    
+</div>
+</div>
 
         {% comment %} <div class="second-header">
             <a href="/">Home</a>
@@ -395,12 +391,12 @@
   <el-disclosure id="mobile-menu" hidden class="block sm:hidden">
     <div class="space-y-1 px-2 pt-2 pb-3">
       <!-- Current: "bg-gray-900 dark:bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-      <a href="#" aria-current="page" class="block rounded-md bg-gray-900 px-1 py-1 text-babase font-xlum text-white dark:bg-gray-950/50">Home</a>
-      <a href="#" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Agriculture Guidance</a>
-      <a href="#" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Sell Your Crops</a>
-      <a href="#" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Buy Crops</a>
-      <a href="#" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Post Advertisement</a>
-      <a href="#" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Posted Advertisement</a>
+      <a href="/" aria-current="page" class="block rounded-md bg-gray-900 px-1 py-1 text-babase font-xlum text-white dark:bg-gray-950/50">Home</a>
+      <a href="/agricultureguidance" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Agriculture Guidance</a>
+      <a href="/sellcrops" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Sell Your Crops</a>
+      <a href="/buycrops" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Buy Crops</a>
+      <a href="/postadvertisement" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Post Advertisement</a>
+      <a href="/postedadvertisement" class="block rounded-md px-1 py-1 text-babase font-xlum text-gray-300 hover:bg-white/5 hover:text-white">Posted Advertisement</a>
     </div>
   </el-disclosure>
 </nav>
@@ -416,7 +412,7 @@
     <footer>
         <div class="follow">
             <div class="follow-box-1">
-                <p>Get connected with us on social networks:</p>
+                <p id="footer-text">Get connected with us on social networks:</p>
             </div>
             <div class="follow-box-2">
                 <i id="instagram" class="fa-brands fa-instagram"></i>
@@ -429,17 +425,17 @@
         <div class="footer">
             <div class="footer-box-1">
                 <h3>ikhedut Portal</h3>
-                <p>A reliable platform that helps farmers with quality inputs, useful information and expert support.
+                <p id="footer-text">A reliable platform that helps farmers with quality inputs, useful information and expert support.
                     Our
                     goal is to make farming easier, sustainable and more productive for every farmer.</p>
             </div>
             <div class="footer-box-1" id="links">
                 <h3>QUICK LINKS</h3>
                 <div class="footer-contact-infos">
-                    <a href="/contact"> > Contact Us</a>
-                    <a href="/agricultureguidance"> > Agricultureguidance</a>
-                    <a href="/buycrops"> > Buy Crops</a>
-                    <a href="/postedadvertisement"> > Advertisement</a>
+                    <a id="footer-text" href="/contact"> > Contact Us</a>
+                    <a id="footer-text" href="/agricultureguidance"> > Agricultureguidance</a>
+                    <a id="footer-text" href="/buycrops"> > Buy Crops</a>
+                    <a id="footer-text" href="/postedadvertisement"> > Advertisement</a>
                 </div>
             </div>
             <div class="footer-box-1" id="contact">
@@ -447,15 +443,15 @@
                 <div class="footer-infos">
                     <div style="display: flex; gap: 4px;">
                         <i class="fa-solid fa-house"></i>
-                        <p>Kharavad Plote</p>
+                        <p id="footer-text">Kharavad Plote</p>
                     </div>
                     <div style="display: flex; gap: 4px;">
                         <i class="fa-solid fa-envelope"></i>
-                        <p>princeantala45@gmail.com</p>
+                        <p id="footer-text">princeantala45@gmail.com</p>
                     </div>
                     <div style="display: flex; gap: 4px;">
                         <i class="fa-solid fa-phone"></i>
-                        <p>
+                        <p id="footer-text">
                             +91 7990972794
                         </p>
                     </div>
@@ -474,14 +470,16 @@
                 </div>
             </div>  
         </div>
-        <div class="right bg-gray-300">
-            <a href="/" class="text-green-600">
-                © ikhedut-Portal
-            </a>
-            <p>
-                All Rights Reserved | Designed And Developed by PrinceAntala
-            </p>
-        </div>
+       <div class="right bg-gray-300 px-4 py-3 text-center sm:flex sm:items-center sm:justify-between">
+  <a href="/" class="text-green-600 font-medium">
+    © ikhedut-Portal
+  </a>
+
+  <p class="mt-2 text-sm text-gray-700 sm:mt-0">
+    All Rights Reserved | Designed and Developed by PrinceAntala
+  </p>
+</div>
+
 
     </footer>
     {% endblock footer %}

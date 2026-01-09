@@ -6,7 +6,7 @@
 
   <!-- HEADER -->
   <div class="text-center mb-10">
-    <h2 class="text-3xl font-bold text-gray-900">
+    <h2 id="otherpageheader" class="text-3xl font-bold text-gray-900">
       Buy Fresh Crops
     </h2>
     <p class="text-gray-500 mt-1 text-sm">
@@ -15,7 +15,7 @@
   </div>
 
   <!-- GRID -->
-  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+ <div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
     {% for crop in crops %}
     <div class="group bg-white border rounded-xl p-3 flex flex-col
@@ -66,13 +66,28 @@
           </button>
 
         </div>
+  <div class="flex justify-center">
+  <button type="submit" class="cssbuttons-io-button">
+    Add to Cart
+    <div class="icon">
+      <svg height="24" width="24" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+          fill="currentColor"></path>
+      </svg>
+    </div>
+  </button>
+</div>
 
-        <!-- ADD BUTTON -->
+        {% comment %} <!-- ADD BUTTON -->
         <button type="submit" class="w-full bg-green-700 text-white py-2 rounded-lg
                  text-sm font-semibold
                  transition hover:bg-green-800">
           Add to Cart
-        </button>
+        </button> {% endcomment %}
+
+       
 
       </form>
       {% else %}

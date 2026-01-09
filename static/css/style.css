@@ -207,6 +207,12 @@ html{
     height: 60px;
     border-radius: 5px;
 }
+/* =====================all-other=page=heading======================== */
+#otherpageheader{
+    color: green;
+    font-size: 25px;
+    font-weight: bold;
+}
 /* =========================all-scrolling-animation-------------------------------- */
 #welcome-text-1{
     transform: translateX(300px);

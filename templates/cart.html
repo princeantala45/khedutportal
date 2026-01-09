@@ -9,96 +9,99 @@
   </h2>
 
   {% if items %}
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-    <!-- CART ITEMS -->
-    <div class="lg:col-span-2 space-y-6">
+  <div class="lg:col-span-2 space-y-6">
 
-      {% for item in items %}
-      <div id="cart-item-{{ item.id }}"
-        class="bg-white rounded-xl shadow-sm border p-6 flex gap-6 transition-all duration-300">
+    {% for item in items %}
+    <div id="cart-item-{{ item.id }}"
+      class="bg-white rounded-xl shadow-sm border p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 transition-all duration-300">
 
-        {% if item.product.image %}
-        <img src="{{ item.product.image.url }}" class="w-28 h-28 object-cover rounded-lg border"
-          alt="{{ item.product.crop }}">
-        {% endif %}
+      {% if item.product.image %}
+      <img src="{{ item.product.image.url }}" 
+        class="w-full h-48 sm:w-28 sm:h-28 object-cover rounded-lg border"
+        alt="{{ item.product.crop }}">
+      {% endif %}
 
-        <div class="flex-1">
-
-          <h3 class="text-lg font-semibold text-gray-800">
-            {{ item.product.crop|title }}
-          </h3>
-
-          <!-- PRICE -->
-          <p class="text-sm text-gray-500 mt-1">
-            ₹{{ item.product.price }} per 20 KG
-          </p>
-
-          <p class="text-sm text-gray-700 mt-3">
-            Quantity:
-            <span class="font-medium">
-              {{ item.quantity }} KG
-            </span>
-          </p>
-
-          <!-- ACTIONS -->
-          <div class="flex items-center gap-4 text-sm text-gray-500 mt-4">
-            <button type="button" onclick="openRemoveModal('{{ item.id }}', '{% url 'remove_from_cart' item.id %}')"
-              class="hover:text-red-600 transition">
-              Remove
-            </button>
+      <div class="flex-1 flex flex-col">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800">
+              {{ item.product.crop|title }}
+            </h3>
+            <p class="text-sm text-gray-500 mt-1">
+              ₹{{ item.product.price }} per 20 KG
+            </p>
+          </div>
+          
+          <div class="text-right sm:block">
+            <p class="text-lg font-semibold text-green-700">
+              ₹{{ item.subtotal }}
+            </p>
           </div>
         </div>
 
-        <!-- SUBTOTAL -->
-        <div class="text-right">
-          <p class="text-lg font-semibold text-green-700">
-            ₹{{ item.subtotal }}
-          </p>
-        </div>
+        <p class="text-sm text-gray-700 mt-3">
+          Quantity:
+          <span class="font-medium">
+            {{ item.quantity }} KG
+          </span>
+        </p>
 
-      </div>
-      {% endfor %}
-
-      <a href="{% url 'buycrops' %}" class="inline-block text-green-700 hover:underline font-medium">
-        ← Continue shopping
-      </a>
-
-    </div>
-
-    <!-- ORDER SUMMARY -->
-    <div class="bg-white rounded-xl shadow-sm border p-6 h-fit sticky top-24">
-
-      <h3 class="text-xl font-semibold text-gray-800 mb-6">
-        Order Summary
-      </h3>
-
-      <div class="space-y-4 text-gray-700">
-        <div class="flex justify-between">
-          <span>Subtotal</span>
-          <span>₹{{ total }}</span>
-        </div>
-
-        <div class="flex justify-between">
-          <span>Delivery</span>
-          <span class="text-green-600 font-medium">Free</span>
-        </div>
-
-        <hr>
-
-        <div class="flex justify-between text-lg font-bold">
-          <span>Total</span>
-          <span class="text-green-700">₹{{ total }}</span>
+        <div class="flex items-center gap-4 text-sm text-gray-500 mt-4">
+          <button type="button" onclick="openRemoveModal('{{ item.id }}', '{% url 'remove_from_cart' item.id %}')"
+            class="hover:text-red-600 transition underline sm:no-underline">
+            Remove Item
+          </button>
         </div>
       </div>
 
-      <a href="{% url 'checkout' %}"
-        class="block mt-6 bg-green-700 text-white text-center py-3 rounded-lg hover:bg-green-800 font-medium">
-        Proceed to Checkout
-      </a>
-
     </div>
+    {% endfor %}
+
   </div>
+
+  <div class="bg-white rounded-xl shadow-sm border p-6 h-fit lg:sticky lg:top-24 mt-4 lg:mt-0">
+
+    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+      Order Summary
+    </h3>
+
+    <div class="space-y-4 text-gray-700">
+      <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span>₹{{ total }}</span>
+      </div>
+
+      <div class="flex justify-between">
+        <span>Delivery</span>
+        <span class="text-green-600 font-medium">Free</span>
+      </div>
+
+      <hr>
+
+      <div class="flex justify-between text-lg font-bold">
+        <span>Total</span>
+        <span class="text-green-700">₹{{ total }}</span>
+      </div>
+    </div>
+
+<div class="flex justify-start pt-4">
+  <button type="submit" class="cssbuttons-io-button">
+    Proceed to Checkout
+    <div class="icon">
+      <svg height="24" width="24" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+          fill="currentColor"></path>
+      </svg>
+    </div>
+ 
+
+  </div>
+</div>
+</div>
 
   {% else %}
   <div class="bg-white border rounded-xl shadow-sm text-center py-24">

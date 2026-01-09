@@ -44,11 +44,11 @@
         rounded-tl-[80px] rounded-br-[80px] rounded-tr-2xl rounded-bl-2xl shadow-lg">
         <div id="sliderBox" class="flex snap-x snap-mandatory overflow-x-auto scroll-smooth 
           h-[260px] sm:h-[320px] md:h-[380px] scrollbar-hide">
-          <img src="/static/welcome-slider/1.jpg" class="w-full h-full object-cover flex-shrink-0 snap-center" />
+          <img src="{%static 'welcome-slider/1.jpg'%}" class="w-full h-full object-cover flex-shrink-0 snap-center" />
 
-          <img src="/static/welcome-slider/2.jpg" class="w-full h-full object-cover flex-shrink-0 snap-center" />
+          <img src="{%static 'welcome-slider/2.jpg'%}" class="w-full h-full object-cover flex-shrink-0 snap-center" />
 
-          <img src="/static/welcome-slider/3.jpg" class="w-full h-full object-cover flex-shrink-0 snap-center" />
+          <img src="{%static 'welcome-slider/3.jpg'%}" class="w-full h-full object-cover flex-shrink-0 snap-center" />
         </div>
 
         <!-- Left Button -->
@@ -61,8 +61,8 @@
             <button onclick="slideRight()" class="absolute right-4 top-1/2 -translate-y-1/2 
           bg-green-700/90 hover:bg-green-800 text-white 
           w-9 h-9 rounded-full flex items-center justify-center shadow-md">
-              >
-            </button>
+              
+          >  </button>
       </div>
     </div>
 
@@ -132,7 +132,7 @@
 
 {% comment %} ----------------------------informations---------------------------- {% endcomment %}
 
-<section class="py-12 bg-gray-50">
+{% comment %} <section class="py-12 bg-gray-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section Title -->
@@ -168,7 +168,7 @@
           </p>
 
           <a href="/tractor" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -203,7 +203,7 @@
           </p>
 
           <a href="/tillage" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -224,7 +224,7 @@
         <div class="p-6 flex flex-col h-full">
 
           <div class="flex justify-center mb-6">
-            <img src="{% static 'info-img/ox.png' %}" alt="Ox"
+            <img src="{% static 'info-img/ox-info.png' %}" alt="Ox"
               class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
           </div>
 
@@ -238,7 +238,7 @@
           </p>
 
           <a href="/ox" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -273,7 +273,7 @@
           </p>
 
           <a href="/agrochemicals" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -308,7 +308,7 @@
           </p>
 
           <a href="/fertilizer" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -343,7 +343,7 @@
           </p>
 
           <a href="/spraypump" class="mt-6">
-            <button class="cssbuttons-io-button  w-[160px] justify-center">
+            <button class="cssbuttons-io-button  w-full justify-center">
               View More
               <div class="icon">
                 <svg height="24" width="24" viewBox="0 0 24 24">
@@ -360,8 +360,153 @@
 
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
+
+<section class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="mb-12 text-center">
+      <h1 class="text-2xl sm:text-3xl font-semibold text-green-700">
+        Informations
+      </h1>
+      <p class="mt-2 text-gray-600 text-sm sm:text-base">
+        Tools, equipment, and essentials for modern farming
+      </p>
+    </div>
+
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/tractor.png" alt="Tractor"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Tractor</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            A tractor is a powerful farming vehicle used for ploughing, tilling, and hauling.
+            It features a diesel engine, PTO, gears, and hydraulic systems.
+          </p>
+          <a href="/tractor" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/tillage.png" alt="Tillage Equipment"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Tillage Equipment</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            Used to prepare soil by breaking, mixing, and leveling land. Includes rotavators, cultivators, ploughs, and harrows.
+          </p>
+          <a href="/tillage" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/ox-info.png" alt="Ox"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Ox</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            Oxen are trained cattle used for ploughing and traditional farming where machines cannot operate efficiently.
+          </p>
+          <a href="/ox" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/Agrochemicals-1.webp" alt="Agrochemicals"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Agrochemicals</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            Chemical products used to protect crops, improve plant health, and increase yield when applied correctly.
+          </p>
+          <a href="/agrochemicals" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/fertilizer.png" alt="Fertilizer"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Fertilizer</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            Provides essential nutrients like nitrogen, phosphorus, and potassium to improve soil health and productivity.
+          </p>
+          <a href="/fertilizer" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="group bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <div class="p-6 flex flex-col h-full">
+          <div class="flex justify-center mb-6">
+            <img src="/static/info-img/spray-pump.jpg" alt="Spray Pump"
+              class="w-32 h-28 object-contain group-hover:scale-110 transition duration-300">
+          </div>
+          <h2 id="information-heading" class="text-xl font-semibold text-gray-800 mb-3 text-center">Spray Pump</h2>
+          <p id="information-text" class="text-gray-600 text-sm leading-relaxed flex-grow text-center">
+            Used to evenly apply pesticides, fertilizers, and water. Available in manual, battery, and motorized types.
+          </p>
+          <a href="/spraypump" class="mt-6 flex justify-center">
+            <button class="cssbuttons-io-button w-[160px] sm:w-auto justify-center">
+              View More
+              <div class="icon">
+                <svg height="24" width="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+              </div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>      
 
 <!-- --------------------------------------india-map--------------------------------- -->
 <section class="w-full min-h-screen">
@@ -396,8 +541,6 @@
 
   </div>
 </section>
-
-
 
 <!-- ---------------------------------------box-infos---------------------------- -->
 <section>
