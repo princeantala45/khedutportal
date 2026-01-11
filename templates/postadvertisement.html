@@ -44,15 +44,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input type="text" name="fullname" required placeholder="Full Name"
                         oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
-                        class="input-animated h-9 text-sm">
+                        class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 h-9 text-sm">
 
 
                     <input type="text" name="mobile" required placeholder="Mobile Number" maxlength="10"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="input-animated h-9 text-sm">
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 h-9 text-sm">
 
                     <input type="text" name="city" required placeholder="City"
                         oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
-                        class="input-animated h-9 text-sm">
+                        class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 h-9 text-sm">
 
                 </div>
             </section>
@@ -66,14 +66,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input type="text" name="productname" required placeholder="Product Name"
                         oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
-                        class="input-animated h-9 text-sm">
+                        class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 h-9 text-sm">
 
                     <input type="text" name="price" required maxlength="6" placeholder="Price"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="input-animated h-9 text-sm">
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 h-9 text-sm">
 
 
                     <textarea name="description" rows="3" required placeholder="Description"
-                        class="input-animated text-sm md:col-span-2"></textarea>
+                        class="input-animated focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-400 text-sm md:col-span-2"></textarea>
 
                     <input type="file" name="image" accept="image/*" required
                         class="file-animated text-sm md:col-span-2">
@@ -177,12 +177,6 @@
         border: 1px solid #d1d5db;
         border-radius: 6px;
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .input-animated:focus {
-        outline: none;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
 
     /* File */
